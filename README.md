@@ -66,14 +66,19 @@ Config file based setup
 ```
 
 ## Prerequisites
+**Python 3 is required** (v0.9.0 and later). This covers current Enigma2 images such as OpenATV 7.x, OpenPLi 9+,
+OpenViX 6+, OpenBH 5+ and Egami 10+. Boxes still on a Python 2 image should stay on v0.8.5.
+
 EPG-Importer plugin is required. This should be available in the plugin feed or already installed.
 
-N.B. OpenPLi may need additional packages installed. If you attempt to run the script and get an error about
-missing modules please run
+Picon download (`-P`) needs Pillow to convert non-png logos to png. If it isn't already installed run
+
 ```
 opkg update
-opkg install python-image python-imaging python-argparse
+opkg install python3-pillow
 ```
+
+Without Pillow, logos that are already png are still used; other formats are skipped.
 
 ## How to install
 * FTP the e2m3u2bouquet.py to your enigma2 box (I would suggest to /etc/enigma2/e2m3u2bouquet)
@@ -329,5 +334,18 @@ which makes editing the crontab easier)
 * Allow channels to be moved between categories, use categoryOverride in the override file
 * All custom categories, use customCategory="true" in the override file
 * Add provider managed update support
+
+### v0.9.0
+* Ported to Python 3 (required for OpenATV 7.x, OpenPLi 9+, OpenViX 6+ and other current images)
+* Replaced removed urllib.FancyURLopener / urlretrieve with urllib.request; browser user agent kept
+* Automatic fallback to an unverified SSL connection when the box's CA certificates are out of date
+* Replaced imghdr (removed in Python 3.13) with Pillow based image detection, plus a built in fallback
+  when Pillow isn't installed
+* Pillow is now optional - only needed to convert non-png picons
+* Picons are downloaded in a single request instead of two
+* UTF-8 BOM at the start of an m3u file is ignored
+* Fixed: errors raising a string instead of an exception
+* Fixed: blank line printed instead of status message when parsing custom bouquet order
+* Service references are generated exactly as before, so existing override files and EPG mappings keep working
 
 Visit https://www.suls.co.uk/enigma2-iptv-bouquets-with-epg/ for further information on the script
