@@ -1,6 +1,8 @@
 # Enigma2 IPTV m3u to bouquet
 
-Latest release can be downloaded from [releases](https://github.com/su1s/e2m3u2bouquet/releases/latest)
+> **This is a Python 3 port (v0.9.0) of [su1s/e2m3u2bouquet](https://github.com/su1s/e2m3u2bouquet).**
+> Download `e2m3u2bouquet.py` from this repository's main branch. Boxes still on a Python 2 image
+> should stay on the last upstream release, [v0.8.5](https://github.com/su1s/e2m3u2bouquet/releases/latest).
 
 ## Usage
 ```
